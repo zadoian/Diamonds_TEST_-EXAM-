@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Data</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .summary {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .tables-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .table-container {
+            margin: 0 10px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e1f7d5;
+        }
+        .table-title {
+            margin: 0;
+            padding: 10px 0;
+            text-align: center;
+            color: #4CAF50;
+            font-size: 18px;
+        }
+        @media (max-width: 800px) {
+            .tables-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            table {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Diamond Data Overview</h1>
+
+    <div class="summary">
+        <p><strong>Highest Diamond Price:</strong> ${{ highest_price }}</p>
+        <p><strong>Average Diamond Price:</strong> ${{ average_price }}</p>
+        <p><strong>Number of Ideal Diamonds:</strong> {{ ideal_count }}</p>
+        <p><strong>Number of Different Colors:</strong> {{ unique_colors }}</p>
+        <p><strong>Colors Available:</strong> {{ color_types | join(', ') }}</p>
+        <p><strong>Median Carat of Premium Cut Diamonds:</strong> {{ median_carat_premium }}</p>
+    </div>
+
+    <div class="tables-container">
+        <div class="table-container">
+            <h2 class="table-title">Average Carat per Cut</h2>
+            <table>
+                <tr>
+                    <th>Cut</th>
+                    <th>Average Carat</th>
+                </tr>
+                {% for cut, carat in average_carat_per_cut.items() %}
+                <tr>
+                    <td>{{ cut }}</td>
+                    <td>{{ carat }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h2 class="table-title">Average Price per Color</h2>
+            <table>
+                <tr>
+                    <th>Color</th>
+                    <th>Average Price</th>
+                </tr>
+                {% for color, price in average_price_per_color.items() %}
+                <tr>
+                    <td>{{ color }}</td>
+                    <td>{{ price }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h2 class="table-title">Number of Diamonds per Clarity</h2>
+            <table>
+                <tr>
+                    <th>Clarity</th>
+                    <th>Count</th>
+                </tr>
+                {% for clarity, count in clarity_count.items() %}
+                <tr>
+                    <td>{{ clarity }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
